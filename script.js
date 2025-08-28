@@ -53,3 +53,9 @@ for (const call of calls) {
         callHistory.prepend(historyItem);
     })
 }
+
+document.getElementById('clear-btn')
+    .addEventListener('click', function () {
+        
+        callHistory.innerHTML = "";
+    })
