@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+  <!-- একেকটা Card -->
+  <div class="card">
+    <h2 class="service-name">জাতীয় জরুরি সেবা</h2>
+    <p class="service-number">999</p>
+    <button class="call-btn">Call</button>
+  </div>
+
+  <div class="card">
+    <h2 class="service-name">Fire Service</h2>
+    <p class="service-number">123</p>
+    <button class="call-btn">Call</button>
+  </div>
+
+  <!-- Total Coins দেখানোর জায়গা -->
+  <p>Coins: <span id="coins">100</span></p>
+
+  <!-- Call History Section -->
+  <h3>Call History</h3>
+  <ul id="callHistory"></ul>
+
+  <script>
+    // শুরুতে কয়েন থাকবে
+    let coins = 100;
+
+    // সব call button select করো
+    const callButtons = document.querySelectorAll('.call-btn');
+
+    for (const btn of callButtons) {
+      btn.addEventListener('click', function () {
+        // service name এবং number খুঁজে বের করা
+        const card = btn.closest('.card');
+        const serviceName = card.querySelector('.service-name').innerText;
+        const serviceNumber = card.querySelector('.service-number').innerText;
+
+        // কয়েন চেক করা
+        if (coins < 20) {
+          alert("Sorry! You don’t have enough coins to make a call.");
+          return; // এখানে থেমে যাবে
+        }
+
+        // Alert দেখানো
+        alert(`📞Calling ${serviceName} (${serviceNumber})...`);
+
+        // কয়েন থেকে 20 কমানো
+        coins -= 20;
+        document.getElementById('coins').innerText = coins;
+
+        // Call History তে যোগ করা
+        // Call History container select করা
+        const callHistory = document.getElementById('callHistory'); // এই div তোমার aside এ থাকবে
+
+        // Call History তে নতুন এন্ট্রি যোগ করার অংশ
+        const now = new Date();
+        const timeString = now.toLocaleTimeString(); // যেমন: 11:36:58 AM
+
+        const historyItem = document.createElement('div');
+        historyItem.className = "flex justify-between items-center bg-gray-100 rounded-lg p-4 mb-2";
+        historyItem.innerHTML = `
+    <div>
+        <h2>${serviceName}</h2>
+        <p class="text-gray-500">${serviceNumber}</p>
+    </div>
+    <p>${timeString}</p>
+        `;
+
+        callHistory.prepend(historyItem); // নতুন কল history এর উপরে যোগ
+      });
+    }
+
+  </script>
+</body>
+
+</html>
