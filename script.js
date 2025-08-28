@@ -50,7 +50,7 @@ for (const call of calls) {
                 </div>
         `;
 
-        callHistory.prepend(historyItem);
+        callHistory.appendChild(historyItem);
     })
 }
 
@@ -59,3 +59,18 @@ document.getElementById('clear-btn')
         
         callHistory.innerHTML = "";
     })
+
+
+    const copyBtn = document.querySelectorAll('.copy-btn');
+
+for (const btn of copyBtn) {
+    btn.addEventListener('click',function() {
+
+        const card = btn.closest('.card');
+        const textToCopy = card.querySelector('.service-number').innerText;
+        
+        navigator.clipboard.writeText(textToCopy);
+            alert(`Copied: "${textToCopy}"`);
+
+    });
+}
