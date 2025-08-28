@@ -56,21 +56,31 @@ for (const call of calls) {
 
 document.getElementById('clear-btn')
     .addEventListener('click', function () {
-        
+
         callHistory.innerHTML = "";
     })
 
 
-    const copyBtn = document.querySelectorAll('.copy-btn');
+const copyBtn = document.querySelectorAll('.copy-btn');
+
+const copyCount = document.getElementById('copyCount');
 
 for (const btn of copyBtn) {
-    btn.addEventListener('click',function() {
+    btn.addEventListener('click', function () {
 
         const card = btn.closest('.card');
         const textToCopy = card.querySelector('.service-number').innerText;
-        
+
         navigator.clipboard.writeText(textToCopy);
-            alert(`Copied: "${textToCopy}"`);
+
+        alert(`Copied: "${textToCopy}"`);
+
+        let copyCount = parseInt(document.getElementById('copyCount').innerText);
+        const totalCount = copyCount + 1;
+
+        document.getElementById('copyCount').innerText = totalCount;
+
 
     });
 }
+
